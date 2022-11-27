@@ -7,6 +7,16 @@
 <p>
     <a asp-action="Create">Adicionar tarefa</a>
 </p>
+<p>
+    <a asp-action="Edit">Editar tarefa</a>
+</p>
+<p>
+    <a asp-action="Delete">Excluir tarefa</a>
+</p>
+
+<h1>
+    <input type="button" onclick="add" action="create" />
+</h1>
 
 <table id="item" class="table">
     <thead>
@@ -14,6 +24,8 @@
             <th>Descrição</th>
             <th>Data de criação</th>
             <th>Status</th>
+            <th>Editar</th>
+            <th>Excluir</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +34,8 @@
             <tr>
                 <td>@item.Description</td>
                 <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
-                <td><input type="checkbox" disabled @( item.Done ? "checked" : "" ) action="" /></td>
+                <td><input type="checkbox" onclick="edit" value="@item.Done" disabled @( item.Done ? "checked" : "" ) action="Edit" /></td>
+                <td><input type="button" onclick="delete" value="@item.Id" action="delete" /></td>
             </tr>
         }
     </tbody>
@@ -30,6 +43,14 @@
 
 <script>
     function add() {
-        window.location.href = ''
+        window.location.href = '/Create'
+    }
+
+    function edit() {
+        window.location.href = '/Edit'
+    }
+
+    function delete () {
+        window.location.href = '/Delete'
     }
 </script>

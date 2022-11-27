@@ -1,0 +1,38 @@
+﻿@model ToDo.Web.Mvc.Models.DeleteItemModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<div class="mg-left-10px">
+    <h2>@ViewData["Title"]</h2>
+    <h3 class="mar-top-50px">você tem certeza que quer deletar esse item?</h3>
+
+    <table id="item" class="table">
+        <thead>
+            <tr class="">
+                <th>Descrição</th>
+                <th>Data de criação</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td><input type="checkbox" hidden="true" onclick="edit" value="@item.Done" disabled @( item.Done ? "checked" : "" )  /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn btn-md bg-color-red color-white" type="submit">Delete</button>
+</form>
+
+<a class="btn btn-md bg-color-blue color-white mg-top-15px" asp-action="Index">Voltar</a>

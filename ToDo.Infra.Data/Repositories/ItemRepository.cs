@@ -63,7 +63,29 @@ namespace ToDo.Infra.Data.Repositories
         public async Task EditAsync(Item item)
         {
             var count = 0;
-            var query = "update Items set Description = @Description, Done = @Done where id = @Id";
+            var query = "update Items set Done = @Done where id = @Id";
+            using (var con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    count = await con.ExecuteAsync(query, item);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    con.Close();
+                }
+            };
+        }
+
+        public async Task DeleteAsync(Item item)
+        {
+            var count = 0;
+            var query = "delete from Items where id = @Id";
             using (var con = new SqlConnection(connectionString))
             {
                 try
